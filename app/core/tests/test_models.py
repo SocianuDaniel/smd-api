@@ -3,6 +3,7 @@ Tests for the models
 """
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+from core import models
 
 
 class TestModels(TestCase):
@@ -45,3 +46,19 @@ class TestModels(TestCase):
         )
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+
+    def test_create_location(self):
+        """Test creatinga location successful"""
+
+        user = get_user_model().objects.create_user(
+            'email@example.com',
+            'test123'
+        )
+
+        location = models.Location.objects.create(
+            user=user,
+            name='location name',
+
+        )
+
+        self.assertEqual(str(location), location.name)
