@@ -49,7 +49,7 @@ class PrivateLocationApiTests(TestCase):
         create_location(self.user)
         res = self.client.get(LOCATIONS_URL)
 
-        locations = Location.objects.all().order('-id')
+        locations = Location.objects.all().order_by('-id')
         serializer = LocationSerializer(locations, many=True)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
