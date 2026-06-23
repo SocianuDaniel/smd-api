@@ -7,6 +7,8 @@ from django.contrib.auth.models import (
     PermissionsMixin
 )
 from django.db import models
+from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 
 class UserManager(BaseUserManager):
@@ -39,3 +41,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     objects = UserManager()
     USERNAME_FIELD = 'email'
+
+
+class Location(models.Model):
+    """class model for Location"""
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='user_locations'
+    )
+    name = models.CharField(_('location name'), max_length=255)
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
