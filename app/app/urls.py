@@ -32,5 +32,6 @@ urlpatterns = [
     ),
     path('api/user/', include('user.urls')),
     path('api/location/', include('location.urls')),
+    path('api/room/', include('room.urls')),
 
 ]

@@ -55,3 +55,24 @@ class Location(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Room(models.Model):
+    """class model for room"""
+    location = models.ForeignKey(
+        Location,
+        on_delete=models.CASCADE,
+        related_name="rooms"
+    )
+    name = models.CharField(_('room name'), max_length=100)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['location', 'name'],
+                name='unique_room_name_per_location'
+            )
+        ]
+
+    def __str__(self):
+        return f'{self.location}-{self.name}'

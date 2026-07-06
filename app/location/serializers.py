@@ -12,5 +12,11 @@ class LocationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Location
-        fields = ['id', 'name', 'description']
+        fields = ['id', 'name',]
         read_only_fields = ['id']
+
+
+class LocationDetailSerializer(LocationSerializer):
+    """Serializer for location detail view"""
+    class Meta(LocationSerializer.Meta):
+        fields = LocationSerializer.Meta.fields + ['description']

@@ -62,3 +62,21 @@ class TestModels(TestCase):
         )
 
         self.assertEqual(str(location), location.name)
+
+    def test_create_room_for_location(self):
+        """test creating room for location"""
+        user = get_user_model().objects.create_user(
+            'email@example.com',
+            'test123'
+        )
+
+        location = models.Location.objects.create(
+            user=user,
+            name='newlocation',
+
+        )
+        room = models.Room.objects.create(
+            location=location,
+            name="newroom"
+        )
+        self.assertEqual(str(room), f'{location.name}-{room.name}')
